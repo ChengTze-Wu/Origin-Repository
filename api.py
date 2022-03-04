@@ -6,8 +6,9 @@ api = Blueprint('api', __name__)
 
 @api.route("/attractions/")
 def get_attractions_json():
-    page = request.args.get("page")
-    keyword = request.args.get("keyword")
+    page = request.args.get("page", 0)
+    keyword = request.args.get("keyword", '%')
+
     try:
         attractions = attraction_query(keyword, int(page)*12)
         if attractions:

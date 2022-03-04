@@ -23,4 +23,4 @@ def thankyou():
 # api
 app.register_blueprint(api, url_prefix="/api/")
 
-app.run(port=3000)
+app.run(port=3000, debug=True)

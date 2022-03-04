@@ -14,13 +14,10 @@ cnx = mysql.connector.connect(pool_name = "pool",
                               pool_size = 5,
                               **config)
 
-# TODO try
 def attraction_query(keyword, page):
     try:
         cnx = mysql.connector.connect(pool_name = "pool")
         cursor = cnx.cursor()
-        if keyword == None:
-            keyword = '%'
         attraction_query = ("select * from attractions "
                             "where name like concat('%', %s, '%') "
                             "limit %s, 12")
