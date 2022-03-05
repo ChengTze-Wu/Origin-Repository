@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from mysql_connector import attraction_query, attraction_query_by_id
-import json
+
 
 api = Blueprint('api', __name__)
 
@@ -8,7 +8,6 @@ api = Blueprint('api', __name__)
 def get_attractions_json():
     page = request.args.get("page", 0)
     keyword = request.args.get("keyword", '%')
-
     try:
         attractions = attraction_query(keyword, int(page)*12)
         if attractions:
