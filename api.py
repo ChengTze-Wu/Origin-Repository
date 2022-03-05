@@ -40,7 +40,7 @@ def get_attraction_json_by_id(id):
     try:
         attr = attraction_query_by_id(id)
         if attr:
-            data = [{"id": attr[0],
+            data = {"id": attr[0],
                         "name": attr[1],
                         "category": attr[2],
                         "description": attr[3],
@@ -49,7 +49,7 @@ def get_attraction_json_by_id(id):
                         "mrt": attr[6],
                         "latitude": attr[7],
                         "longitude": attr[8],
-                        "images": attr[9].split(",")}]
+                        "images": attr[9].split(",")}
             return jsonify({"data":data})
         else:
             return jsonify({"error":True,"message":"景點標號不正確"}), 400
