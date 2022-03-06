@@ -4,7 +4,7 @@ from mysql_connector import attraction_query, attraction_query_by_id
 
 api = Blueprint('api', __name__)
 
-@api.route("/attractions/")
+@api.route("/attractions")
 def get_attractions_json():
     page = request.args.get("page", 0)
     keyword = request.args.get("keyword", '%')

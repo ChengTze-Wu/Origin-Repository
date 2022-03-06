@@ -11,7 +11,7 @@ config = {
 }
 
 cnx = mysql.connector.connect(pool_name = "pool",
-                              pool_size = 5,
+                              pool_size = 10,
                               **config)
 
 def attraction_query(keyword, page):
