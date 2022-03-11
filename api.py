@@ -1,11 +1,14 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, Response
 from mysql_connector import attraction_query, attraction_query_by_id
-
+import json
 
 api = Blueprint('api', __name__)
 
 @api.route("/attractions")
 def get_attractions_json():
+    resp = Response()
+    resp.headers.add("Content-Type", "application/json; charset=utf-8")
+    resp.headers.add('Access-Control-Allow-Origin', '*')
     page = request.args.get("page", 0)
     keyword = request.args.get("keyword", '%')
     try:
@@ -28,15 +31,26 @@ def get_attractions_json():
                 next_page = int(page)+1
             else:
                 next_page = None
-                
-            return jsonify({"nextPage": next_page, "data":data})
+            
+            result = json.dumps({"nextPage": next_page, "data":data})
+            status = 200
         else:
-            return jsonify({"error":True, "message":"無資料"}), 500
+            result = json.dumps({"error":True, "message":"無資料"})
+            status = 500
+        resp.set_data(result)
+        resp.status_code = status;
+        return resp
     except:
-        return jsonify({"error":True, "message":"錯誤"}), 500
+        result = json.dumps({"error":True, "message":"錯誤"})
+        resp.set_data(result)
+        resp.status_code = 500;
+        return resp
 
 @api.route("/attraction/<id>")
 def get_attraction_json_by_id(id):
+    resp = Response()
+    resp.headers.add("Content-Type", "application/json; charset=utf-8")
+    resp.headers.add('Access-Control-Allow-Origin', '*')
     try:
         attr = attraction_query_by_id(id)
         if attr:
@@ -50,8 +64,16 @@ def get_attraction_json_by_id(id):
                         "latitude": attr[7],
                         "longitude": attr[8],
                         "images": attr[9].split(",")}
-            return jsonify({"data":data})
+            result = json.dumps({"data":data})
+            status = 200
         else:
-            return jsonify({"error":True,"message":"景點標號不正確"}), 400
+            result = json.dumps({"error":True,"message":"景點標號不正確"})
+            status = 400
+        resp.set_data(result)
+        resp.status_code = status;
+        return resp
     except:
-        return jsonify({"error":True,"message":"錯誤"}), 500
+        result = json.dumps({"error":True,"message":"錯誤"})
+        resp.set_data(result)
+        resp.status_code = 500;
+        return resp

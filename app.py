@@ -23,3 +23,5 @@ def thankyou():
 # api
 app.register_blueprint(api, url_prefix="/api/")
 
+if __name__ == '__main__':
+    app.run(port=3000)
