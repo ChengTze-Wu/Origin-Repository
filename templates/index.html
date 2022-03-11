@@ -123,7 +123,6 @@
     input.addEventListener("keyup", () => {
         let keyword = input.value;
         remove_items_in_album();
-        event.preventDefault();
         load_attractions(0, keyword).then(() => {
             show_data_with_scroll(keyword);
         });
