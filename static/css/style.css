@@ -104,6 +104,11 @@ a:visited {
     font-weight: bold;
     font-size: 16px;
 }
+.banner__search__message {
+    height: 16px;
+    font-size: 16px;
+    color: var(--secondary-color);
+}
 .banner_image {
     position: absolute;
     bottom: 0;

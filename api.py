@@ -15,7 +15,7 @@ def get_attractions_json():
         attractions = attraction_query(keyword, int(page)*12)
         if attractions:
             data = []
-            for attr in attractions:
+            for attr in attractions[:12]:
                 data.append({"id": attr[0],
                             "name": attr[1],
                             "category": attr[2],
@@ -26,22 +26,21 @@ def get_attractions_json():
                             "latitude": attr[7],
                             "longitude": attr[8],
                             "images": attr[9].split(",")})
-                
-            if attraction_query(keyword, (int(page)+1)*12):
+            if len(attractions) > 12:
                 next_page = int(page)+1
             else:
                 next_page = None
             
-            result = json.dumps({"nextPage": next_page, "data":data})
+            result = json.dumps({"nextPage": next_page, "data":data}, ensure_ascii=False)
             status = 200
         else:
-            result = json.dumps({"error":True, "message":"無資料"})
+            result = json.dumps({"error":True, "message":"無資料"}, ensure_ascii=False)
             status = 500
         resp.set_data(result)
         resp.status_code = status;
         return resp
     except:
-        result = json.dumps({"error":True, "message":"錯誤"})
+        result = json.dumps({"error":True, "message":"錯誤"}, ensure_ascii=False)
         resp.set_data(result)
         resp.status_code = 500;
         return resp
@@ -67,13 +66,13 @@ def get_attraction_json_by_id(id):
             result = json.dumps({"data":data})
             status = 200
         else:
-            result = json.dumps({"error":True,"message":"景點標號不正確"})
+            result = json.dumps({"error":True,"message":"景點標號不正確"}, ensure_ascii=False)
             status = 400
         resp.set_data(result)
         resp.status_code = status;
         return resp
     except:
-        result = json.dumps({"error":True,"message":"錯誤"})
+        result = json.dumps({"error":True,"message":"錯誤"}, ensure_ascii=False)
         resp.set_data(result)
         resp.status_code = 500;
         return resp
