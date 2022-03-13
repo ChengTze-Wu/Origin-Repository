@@ -20,7 +20,7 @@ def attraction_query(keyword, page):
         cursor = cnx.cursor()
         attraction_query = ("select * from attractions "
                             "where name like concat('%', %s, '%') "
-                            "limit %s, 12")
+                            "limit %s, 13")
         page_data = (keyword, page)
         cursor.execute(attraction_query, page_data)
         return cursor.fetchall()
