@@ -3,12 +3,25 @@
     <div class="w-1200 grid-center-v">
         <h1 class="banner__title">輕鬆享受台北一日悠閒</h1>
         <h2 class="banner__subtitle">探索每個角落，體驗城市的深度旅遊行程</h2>
-        <input
-            class="banner__search__input"
-            type="text"
-            placeholder="輸入景點名稱查詢"
-        />
-        <p class="banner__search__message"></p>
+        <div class="banner__search">
+            <input
+                class="banner__search__input"
+                id="banner__search__input"
+                type="text"
+                placeholder="輸入景點名稱查詢"
+            />
+            <label
+                class="banner__search__lable grid-center"
+                for="banner__search__input"
+                src="{{ url_for('static', filename='img/search.png') }}"
+            >
+                <img
+                    class="banner__search__image"
+                    src="{{ url_for('static', filename='img/search.png') }}"
+                />
+            </label>
+            <p class="banner__search__message"></p>
+        </div>
     </div>
     <img
         class="banner_image"
@@ -92,8 +105,9 @@
     function show_data_with_scroll(keyword) {
         const callback = (entries, observer) => {
             input.addEventListener("keyup", () => {
-                g_page = 0;
-                observer.unobserve(target);
+                if (keyword != last_keyword) {
+                    observer.unobserve(target);
+                }
             });
             entries.forEach((e) => {
                 if (e.isIntersecting) {
@@ -119,12 +133,16 @@
         show_data_with_scroll();
     });
 
+    let last_keyword = "";
     input.addEventListener("keyup", () => {
         let keyword = input.value;
-        remove_items_in_album();
-        load_attractions(0, keyword).then(() => {
-            show_data_with_scroll(keyword);
-        });
+        if (keyword != last_keyword) {
+            last_keyword = keyword;
+            remove_items_in_album();
+            load_attractions(0, keyword).then(() => {
+                show_data_with_scroll(keyword);
+            });
+        }
     });
 </script>
 {% endblock %}
