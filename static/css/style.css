@@ -149,14 +149,13 @@ a:visited {
     border-radius: 5px;
     color: var(--secondary-color);
     font-size: 16px;
+    overflow: hidden;
 }
 .album__item__image {
     grid-area: 1 / 1 / 2 / 3;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 .album__item__name {
     grid-area: 2 / 1 / 3 / 3;
