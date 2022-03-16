@@ -108,7 +108,7 @@ load_attractions(0).then(() => {
 });
 
 search_input.addEventListener("keyup", () => {
-    let keyword = input.value;
+    let keyword = search_input.value;
     if (keyword.trim() != temp_keyword) {
         temp_keyword = keyword;
         remove_album_items();
