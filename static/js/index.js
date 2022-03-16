@@ -20,6 +20,7 @@ async function load_attractions(page, keyword) {
         render_input_message(keyword);
         temp_page = null;
     } else {
+        remove_input_message();
         json_data["data"].forEach((item) => {
             const image = item["images"][0];
             const name = item["name"];
@@ -27,7 +28,6 @@ async function load_attractions(page, keyword) {
             const category = item["category"];
             render_album_item(image, name, mrt, category);
         });
-        remove_input_message();
         temp_page = json_data["nextPage"];
     }
 }
@@ -109,7 +109,7 @@ load_attractions(0).then(() => {
 
 search_input.addEventListener("keyup", () => {
     let keyword = search_input.value;
-    if (keyword.trim() != temp_keyword) {
+    if (keyword.trim() != temp_keyword && fetch_status == false) {
         temp_keyword = keyword;
         remove_album_items();
         load_attractions(0, keyword).then(() => {
