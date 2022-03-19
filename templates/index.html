@@ -1,4 +1,9 @@
-{% extends "base.html" %} {% block banner %}
+{% extends "base.html" %} {% block style %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block banner %}
 <div class="banner">
     <div class="w-1200 grid-center-v">
         <h1 class="banner__title">輕鬆享受台北一日悠閒</h1>
@@ -31,118 +36,6 @@
 </div>
 {% endblock %} {% block main %}
 <div class="album w-1200"></div>
-{% endblock %} {% block main_script %}
-<script>
-    function display_album_item(image, name, mrt, category) {
-        const album = document.querySelector(".album");
-        const album__item = document.createElement("div");
-        const album__item__image = document.createElement("img");
-        const album__item__name = document.createElement("div");
-        const album__item__mrt = document.createElement("div");
-        const album__item__category = document.createElement("div");
-        const name_textNode = document.createTextNode(name);
-        const mrt_textNode = document.createTextNode(mrt);
-        const category_textNode = document.createTextNode(category);
-
-        album__item.className = "album__item";
-        album__item__image.className = "album__item__image";
-        album__item__name.className = "album__item__name";
-        album__item__mrt.className = "album__item__mrt";
-        album__item__category.className = "album__item__category";
-
-        album__item__image.src = image;
-        album__item__name.appendChild(name_textNode);
-        album__item__mrt.appendChild(mrt_textNode);
-        album__item__category.appendChild(category_textNode);
-
-        album__item.appendChild(album__item__image);
-        album__item.appendChild(album__item__name);
-        album__item.appendChild(album__item__mrt);
-        album__item.appendChild(album__item__category);
-        album.appendChild(album__item);
-    }
-    function display_not_found(k, m) {
-        const message = document.querySelector(".banner__search__message");
-        message.textContent = "找不到「" + k + "」，查" + m + "。";
-    }
-    function remove_items_in_album() {
-        let album = document.querySelector(".album");
-        while (album.hasChildNodes()) {
-            album.removeChild(album.firstChild);
-        }
-    }
-    function remove_message() {
-        const message = document.querySelector(".banner__search__message");
-        message.textContent = "";
-    }
-
-    async function load_attractions(page, keyword) {
-        let url = "/api/attractions";
-        let full_url;
-        if (keyword) {
-            full_url = url + "?page=" + page + "&keyword=" + keyword;
-        } else {
-            full_url = url + "?page=" + page;
-        }
-        let response = await fetch(full_url);
-        let json_data = await response.json();
-
-        if (json_data["error"]) {
-            display_not_found(keyword, json_data["message"]);
-            g_page = null;
-        } else {
-            json_data["data"].forEach((item) => {
-                const image = item["images"][0];
-                const name = item["name"];
-                const mrt = item["mrt"];
-                const category = item["category"];
-                display_album_item(image, name, mrt, category);
-            });
-            g_page = json_data["nextPage"];
-            remove_message();
-        }
-    }
-    function show_data_with_scroll(keyword) {
-        const callback = (entries, observer) => {
-            input.addEventListener("keyup", () => {
-                if (keyword != last_keyword) {
-                    observer.unobserve(target);
-                }
-            });
-            entries.forEach((e) => {
-                if (e.isIntersecting) {
-                    if (g_page != null) {
-                        load_attractions(g_page, keyword);
-                    } else {
-                        observer.unobserve(target);
-                    }
-                }
-            });
-        };
-        const observer = new IntersectionObserver(callback, {
-            threshold: 0,
-        });
-        const target = document.querySelector(".footer");
-        observer.observe(target);
-    }
-
-    // main execution
-    let g_page = 0;
-    let input = document.querySelector(".banner__search__input");
-    load_attractions(0).then(() => {
-        show_data_with_scroll();
-    });
-
-    let last_keyword = "";
-    input.addEventListener("keyup", () => {
-        let keyword = input.value;
-        if (keyword != last_keyword) {
-            last_keyword = keyword;
-            remove_items_in_album();
-            load_attractions(0, keyword).then(() => {
-                show_data_with_scroll(keyword);
-            });
-        }
-    });
-</script>
+{% endblock %} {% block script %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

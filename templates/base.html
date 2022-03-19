@@ -7,15 +7,17 @@
         <meta name="robots" content="index, follow" />
         <meta name="author" content="ChengTze" />
         <title>台北一日遊</title>
+        <link rel="icon" href="#" />
         <link
             rel="stylesheet"
-            href="{{ url_for('static', filename='css/style.css') }}"
+            href="{{ url_for('static', filename='css/base.css') }}"
         />
+        {% block style %}{% endblock %}
     </head>
     <body>
         <header class="header">
             <div class="w-1200 grid-horizon grid-sb">
-                <h1 class="header__title">台北一日遊</h1>
+                <a href="/" class="header__title">台北一日遊</a>
                 <ul class="header__nav grid-horizon">
                     <li>預定行程</li>
                     <li>登入/註冊</li>
@@ -23,10 +25,10 @@
             </div>
         </header>
         {% block banner %}{% endblock %}
-        <main class="main grid-center">{% block main %}{% endblock %}</main>
+        <main class="main">{% block main %}{% endblock %}</main>
         <footer class="footer grid-center">
             <h1 class="footer__title">COPYRIGHT © 2021 台北一日遊</h1>
         </footer>
-        {% block main_script %}{% endblock %}
+        {% block script %}{% endblock %}
     </body>
 </html>
