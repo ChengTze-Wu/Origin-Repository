@@ -22,20 +22,21 @@ async function load_attractions(page, keyword) {
     } else {
         remove_input_message();
         json_data["data"].forEach((item) => {
+            const id = item["id"];
             const image = item["images"][0];
             const name = item["name"];
             const mrt = item["mrt"];
             const category = item["category"];
-            render_album_item(image, name, mrt, category);
+            render_album_item(id, image, name, mrt, category);
         });
         temp_page = json_data["nextPage"];
     }
 }
 
 // view
-function render_album_item(image, name, mrt, category) {
+function render_album_item(id, image, name, mrt, category) {
     const album = document.querySelector(".album");
-    const album__item = document.createElement("div");
+    const album__item = document.createElement("a");
     const album__item__image = document.createElement("img");
     const album__item__name = document.createElement("div");
     const album__item__mrt = document.createElement("div");
@@ -50,6 +51,7 @@ function render_album_item(image, name, mrt, category) {
     album__item__mrt.className = "album__item__mrt";
     album__item__category.className = "album__item__category";
 
+    album__item.href = "/attraction/" + id;
     album__item__image.src = image;
     album__item__name.appendChild(name_textNode);
     album__item__mrt.appendChild(mrt_textNode);

@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap");
+/* var */
+:root {
+    --main-color: #448899;
+    --secondary-color: #757575;
+    --text-l-color: #666666;
+    --text-color: #f8f8f8;
+}
+/* css reset */
+*,
+*::before,
+*::after {
+    font-family: "Noto Sans TC", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 20px;
+}
+ul {
+    list-style: none;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+/* grid */
+.grid-horizon {
+    display: grid;
+    grid-auto-flow: column;
+}
+.grid-sb {
+    justify-content: space-between;
+    align-items: center;
+}
+.grid-center {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+}
+.grid-center-v {
+    display: grid;
+    place-content: center start;
+}
+.grid-center-h {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+}
+/* width-container */
+.w-1200 {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+/* header */
+.header {
+    position: fixed;
+    width: 100%;
+    height: 54px;
+    background-color: white;
+    z-index: 2;
+    top: 0;
+}
+.header__title {
+    font-size: 30px;
+    color: var(--main-color);
+    font-weight: bold;
+}
+.header__nav {
+    font-size: 16px;
+    color: var(--text-l-color);
+    gap: 20px;
+}
+/* main */
+.main {
+    min-height: 500px;
+    margin-top: 54px;
+}
+/* footer */
+.footer {
+    height: 104px;
+    width: 100%;
+    background-color: var(--secondary-color);
+}
+.footer__title {
+    color: white;
+    font-size: 16px;
+}

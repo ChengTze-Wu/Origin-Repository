@@ -1,4 +1,9 @@
-{% extends "base.html" %} {% block banner %}
+{% extends "base.html" %} {% block style %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block banner %}
 <div class="banner">
     <div class="w-1200 grid-center-v">
         <h1 class="banner__title">輕鬆享受台北一日悠閒</h1>
@@ -31,6 +36,6 @@
 </div>
 {% endblock %} {% block main %}
 <div class="album w-1200"></div>
-{% endblock %} {% block main_script %}
+{% endblock %} {% block script %}
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}
