@@ -172,7 +172,7 @@ input[type="radio"]:checked {
 }
 /* divider */
 .attraction__divider {
-    width: 100%;
+    width: 1200px;
     color: #e8e8e8;
     border: 1px solid #e8e8e8;
 }
@@ -199,6 +199,9 @@ input[type="radio"]:checked {
         width: 100%;
     }
     .attraction__reserve {
+        width: 100%;
+    }
+    .attraction__divider {
         width: 100%;
     }
     .attraction__info {
@@ -235,6 +238,9 @@ input[type="radio"]:checked {
     }
     .attraction__feature {
         margin-top: 0;
+        width: 95%;
+    }
+    .attraction__divider {
         width: 95%;
     }
     .attraction__info {
