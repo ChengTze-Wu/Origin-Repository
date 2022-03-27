@@ -12,15 +12,20 @@
             rel="stylesheet"
             href="{{ url_for('static', filename='css/base.css') }}"
         />
-        {% block style %}{% endblock %}
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/modal.css') }}"
+        />
+        {% block style %}{% endblock %} {% block name %}{% endblock %}
     </head>
     <body>
+        {% include 'modal.html' %}
         <header class="header">
             <div class="w-1200 grid-horizon grid-sb">
                 <a href="/" class="header__title">台北一日遊</a>
                 <ul class="header__nav grid-horizon">
-                    <li>預定行程</li>
-                    <li>登入/註冊</li>
+                    <li class="nav__item">預定行程</li>
+                    <li class="nav__sign nav__item"></li>
                 </ul>
             </div>
         </header>
@@ -29,6 +34,7 @@
         <footer class="footer grid-center">
             <h1 class="footer__title">COPYRIGHT © 2021 台北一日遊</h1>
         </footer>
+        <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
         {% block script %}{% endblock %}
     </body>
 </html>

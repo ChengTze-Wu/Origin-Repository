@@ -73,6 +73,14 @@ a:visited {
     color: var(--text-l-color);
     gap: 20px;
 }
+.header__nav > .nav__item:hover,
+.header__nav > .nav__item:active {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.header__nav > .nav__sign {
+    min-width: 64px;
+}
 /* main */
 .main {
     min-height: 500px;

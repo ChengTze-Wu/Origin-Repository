@@ -10,13 +10,13 @@ config = {
     'database': os.environ['DB_DATABASE']
 }
 
-cnx = mysql.connector.connect(pool_name = "pool",
-                              pool_size = 10,
+cnx = mysql.connector.connect(pool_name = "attraction",
+                              pool_size = 5,
                               **config)
 
 def get_attractions(keyword, page):
     try:
-        cnx = mysql.connector.connect(pool_name = "pool")
+        cnx = mysql.connector.connect(pool_name = "attraction")
         cursor = cnx.cursor()
         attraction_query = ("select * from attractions "
                             "where name like concat('%', %s, '%') "
@@ -54,7 +54,7 @@ def get_attractions(keyword, page):
 
 def get_attraction_by_id(id):
     try:
-        cnx = mysql.connector.connect(pool_name = "pool")
+        cnx = mysql.connector.connect(pool_name = "attraction")
         cursor = cnx.cursor()
         attraction_query = ("select * from attractions "
                             "where id = %s")
