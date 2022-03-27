@@ -1,10 +1,10 @@
 from flask import Blueprint, request, Response
-from model.attraction_query import get_attractions, get_attraction_by_id
+import model
 import json
 
 attraction = Blueprint('attraction', __name__)
 
-@attraction.route("/attractions")
+@attraction.route("/attractions", methods=["GET"])
 def attractions():
     response = Response()
     response.headers.add("Content-Type", "application/json; charset=utf-8")
@@ -12,7 +12,7 @@ def attractions():
     page = request.args.get("page", 0)
     keyword = request.args.get("keyword", '%')
     try:
-        data, next_page = get_attractions(keyword, page)
+        data, next_page = model.get_attractions(keyword, page)
         if data:
             result = json.dumps({"nextPage": next_page, "data":data}, ensure_ascii=False)
             status = 200
@@ -26,13 +26,13 @@ def attractions():
     response.status_code = status
     return response
 
-@attraction.route("/attraction/<id>")
+@attraction.route("/attraction/<id>", methods=["GET"])
 def attraction_by_id(id):
     response = Response()
     response.headers.add("Content-Type", "application/json; charset=utf-8")
     response.headers.add('Access-Control-Allow-Origin', '*')
     try:
-        data = get_attraction_by_id(id)
+        data = model.get_attraction_by_id(id)
         if data:
             result = json.dumps({"data":data})
             status = 200
