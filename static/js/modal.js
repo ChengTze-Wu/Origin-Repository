@@ -93,15 +93,22 @@ function switch_sign(which) {
     if (which == "signin") {
         signin_content.dataset.active = "true";
         signup_content.dataset.active = "";
+        const inputs = document.querySelectorAll(".signin__input");
         render_remind_signup();
         click_to_signup();
         signin();
+        inputs[0].placeholder = "輸入電子信箱";
+        inputs[1].placeholder = "輸入密碼";
     } else if (which == "signup") {
         signup_content.dataset.active = "true";
         signin_content.dataset.active = "";
+        const inputs = document.querySelectorAll(".signup__input");
         render_remind_signin();
         click_to_signin();
         signup();
+        inputs[0].placeholder = "輸入姓名";
+        inputs[1].placeholder = "輸入電子信箱";
+        inputs[2].placeholder = "輸入密碼";
     }
 }
 function click_to_signin() {
@@ -156,6 +163,8 @@ function signin() {
         password = inputs[1];
         if (email.validity.valid && password.validity.valid) {
             patch_user(email.value, password.value).then((message) => {
+                email.placeholder = "輸入電子信箱";
+                password.placeholder = "輸入密碼";
                 remove_modal_message();
                 if (message["ok"]) {
                     location.reload();
@@ -186,6 +195,9 @@ function signup() {
         ) {
             post_user(text.value, email.value, password.value).then(
                 (message) => {
+                    text.placeholder = "輸入姓名";
+                    email.placeholder = "輸入電子信箱";
+                    password.placeholder = "輸入密碼";
                     remove_modal_message();
                     if (message["ok"]) {
                         location.reload();
