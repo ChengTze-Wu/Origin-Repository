@@ -78,17 +78,17 @@ function hit_reserve__button() {
     const error_message = document.querySelector(".error_message");
     let input__time;
     reserve__button.addEventListener("click", () => {
-        if (!input__date.validity.valid) {
-            error_message.textContent = "請選擇日期!";
-        } else {
-            get_data_from_api("/api/user").then((message) => {
-                if (message["data"]) {
-                    const price = document.querySelector(".price");
-                    if (price.textContent == "2000") {
-                        input__time = "forenoon";
-                    } else {
-                        input__time = "afternoon";
-                    }
+        get_data_from_api("/api/user").then((message) => {
+            if (message["data"]) {
+                const price = document.querySelector(".price");
+                if (price.textContent == "2000") {
+                    input__time = "forenoon";
+                } else {
+                    input__time = "afternoon";
+                }
+                if (!input__date.validity.valid) {
+                    error_message.textContent = "請選擇日期!";
+                } else {
                     post_data_to_api("/api/booking", {
                         attractionId: Number(get_path().slice(12)),
                         date: input__date.value,
@@ -97,11 +97,11 @@ function hit_reserve__button() {
                     }).then((m) => {
                         location.href = "/booking";
                     });
-                } else {
-                    open_modal_for_reserve();
                 }
-            });
-        }
+            } else {
+                open_modal_for_reserve();
+            }
+        });
     });
 }
 function choose_time() {
