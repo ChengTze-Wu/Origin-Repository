@@ -28,9 +28,8 @@ def get_booking_by_user_id(user_id):
         
         cursor.execute(query, value)
         data = cursor.fetchall()
-        
-        data = data[-1]
         if data:
+            data = data[-1]
             result = { "data":{
                 "attraction": {
                     "id": data[0],
