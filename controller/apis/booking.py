@@ -22,7 +22,6 @@ def get_booking_with_cookie():
             user = model.get_current_user(email)
             user_id = user["data"]["id"]
             booking = model.get_booking_by_user_id(user_id)[0]
-            print(booking)
             resp = make_response((booking, 200, api_header))
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))
