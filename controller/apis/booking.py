@@ -64,8 +64,7 @@ def delete_booking():
             email = decoded_token["email"]
             user = model.get_current_user(email)
             user_id = user["data"]["id"]
-            booking_id = model.get_booking_by_user_id(user_id)[1]
-            model.delete_booking(booking_id)
+            model.delete_booking_by_user(user_id)
             resp = make_response(({"ok":True}, 200, api_header))
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))

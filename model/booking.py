@@ -91,3 +91,22 @@ def delete_booking(id):
             cnx.rollback()
         cursor.close()
         cnx.close()
+        
+def delete_booking_by_user(user_id):
+    try:
+        cnx = mysql.connector.connect(pool_name = "booking")
+        cursor = cnx.cursor()
+        
+        query = ("DELETE FROM bookings "
+                 "WHERE user_id = %s")
+        value = (user_id,)
+
+        cursor.execute(query, value)
+        cnx.commit()
+    except Exception as e:
+        raise e
+    finally:
+        if cnx.in_transaction:
+            cnx.rollback()
+        cursor.close()
+        cnx.close()
