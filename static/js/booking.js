@@ -8,6 +8,7 @@ const attraction_address = document.querySelector("#attraction_address");
 const user_name = document.querySelector("#user_name");
 const booked = document.querySelector(".booked");
 const unbook = document.querySelector(".unbook");
+const footer = document.querySelector(".footer");
 // model
 async function get_data_from_api(url) {
     const resp = await fetch(url, {
@@ -61,6 +62,7 @@ async function booking() {
     if (data) {
         unbook.dataset.active = "";
         booked.dataset.active = "true";
+        footer.dataset.active = "true";
         const data_image = data["attraction"]["image"];
         const data_name = data["attraction"]["name"];
         const data_address = data["attraction"]["address"];
@@ -84,6 +86,7 @@ async function booking() {
     } else {
         booked.dataset.active = "";
         unbook.dataset.active = "true";
+        footer.dataset.active = "";
     }
 }
 function delete_booking() {

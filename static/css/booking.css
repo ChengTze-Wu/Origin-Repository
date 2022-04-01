@@ -105,6 +105,9 @@
 .footer {
     height: calc(100vh - 238px);
 }
+.footer[data-active="true"] {
+    height: 104px;
+}
 @media screen and (max-width: 1215px) {
     .booking_hr {
         width: 90%;
