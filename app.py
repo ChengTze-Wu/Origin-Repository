@@ -9,8 +9,9 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 # Pages
 app.register_blueprint(controller.pages)
 # api
-app.register_blueprint(controller.attraction, url_prefix="/api")
-app.register_blueprint(controller.user, url_prefix="/api")
+app.register_blueprint(controller.apis.attraction, url_prefix="/api")
+app.register_blueprint(controller.apis.member, url_prefix="/api")
+app.register_blueprint(controller.apis.booking, url_prefix="/api")
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)

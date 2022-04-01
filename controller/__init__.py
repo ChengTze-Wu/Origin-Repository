@@ -1,3 +1,4 @@
-from controller.attraction import attraction
+# router
 from controller.pages import app as pages
-from controller.user import user
+# apis
+from controller.apis import *

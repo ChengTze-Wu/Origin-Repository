@@ -4,6 +4,15 @@ async function get_attraction_by_path(path) {
     const json_data = await response.json();
     return json_data.data;
 }
+async function post_data_to_api(url, data) {
+    const resp = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({ "Content-Type": "application/json" }),
+    });
+    const message = await resp.json();
+    return message;
+}
 // view
 function render_price(choose_price) {
     const price = document.querySelector(".price");
@@ -63,15 +72,53 @@ function render_attraction_on_page(
     attraction__transport.textContent = transport;
 }
 // controller
+function hit_reserve__button() {
+    const reserve__button = document.querySelector(".reserve__button");
+    const input__date = document.querySelector(".input__date");
+    const error_message = document.querySelector(".error_message");
+    let input__time;
+    reserve__button.addEventListener("click", () => {
+        if (!input__date.validity.valid) {
+            error_message.textContent = "請選擇日期!";
+        } else {
+            get_data_from_api("/api/user").then((message) => {
+                if (message["data"]) {
+                    const price = document.querySelector(".price");
+                    if (price.textContent == "2000") {
+                        input__time = "forenoon";
+                    } else {
+                        input__time = "afternoon";
+                    }
+                    post_data_to_api("/api/booking", {
+                        attractionId: Number(get_path().slice(12)),
+                        date: input__date.value,
+                        time: input__time,
+                        price: price.textContent,
+                    }).then((m) => {
+                        location.href = "/booking";
+                    });
+                } else {
+                    open_modal_for_reserve();
+                }
+            });
+        }
+    });
+}
 function choose_time() {
     const inputs = document.querySelectorAll(".input__time");
     inputs.forEach((input) => {
         input.addEventListener("click", () => {
-            render_price(input.value);
+            let price;
+            if (input.value == "afternoon") {
+                price = 2500;
+            } else {
+                price = 2000;
+            }
+            render_price(price);
         });
     });
 }
-function hit_button() {
+function hit_carousel__button() {
     const buttons = document.querySelectorAll(".carousel__button");
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -126,9 +173,10 @@ function init_load() {
 
         render_images_on_carousel(images);
 
-        hit_button();
+        hit_carousel__button();
     });
 }
 // execute
 init_load();
 choose_time();
+hit_reserve__button();

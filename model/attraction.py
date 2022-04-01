@@ -74,7 +74,7 @@ def get_attraction_by_id(id):
                             "images": attraction[9].split(",")}
         else:
             data = None
-        return data
+        return {"data":data}
     except Exception as e:
         raise e
     finally:
