@@ -100,9 +100,8 @@ function delete_booking() {
 }
 function init_loading() {
     login_user_name();
-    booking().then(() => {
-        delete_booking();
-    });
+    booking();
+    delete_booking();
 }
 // main exe
 init_loading();
