@@ -92,8 +92,7 @@ async function booking() {
 function delete_booking() {
     const delete_btn = document.querySelector(".delete");
     delete_btn.addEventListener("click", () => {
-        delete_data_in_api("/api/booking").then((m) => {
-            console.log(m);
+        delete_data_in_api("/api/booking").then(() => {
             location.reload();
         });
     });
