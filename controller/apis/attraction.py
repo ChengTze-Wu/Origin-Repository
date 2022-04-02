@@ -34,7 +34,7 @@ def attraction_by_id(id):
     try:
         data = model.get_attraction_by_id(id)
         if data:
-            result = json.dumps({"data":data})
+            result = json.dumps(data)
             status = 200
         else:
             result = json.dumps({"error":True,"message":"景點標號不正確"}, ensure_ascii=False)

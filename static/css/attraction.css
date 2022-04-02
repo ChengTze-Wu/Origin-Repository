@@ -12,6 +12,7 @@ label {
 }
 /* header */
 .header {
+    box-sizing: content-box;
     border-bottom: 1px solid #e8e8e8;
 }
 /* attraction */
@@ -120,10 +121,10 @@ label {
     border-radius: 5px;
     padding: 15px 20px;
 }
-.attraction__reserve > p,
-.attraction__reserve > h2,
-.attraction__reserve > label,
-.attraction__reserve > input {
+.attraction__reserve p,
+.attraction__reserve h2,
+.attraction__reserve label,
+.attraction__reserve input {
     margin-bottom: 15px;
 }
 .reserve__date,
@@ -135,6 +136,10 @@ label {
     border: none;
     width: 193px;
     height: 35px;
+}
+.error_message {
+    font-size: 16px;
+    color: red;
 }
 .input__time {
     margin-left: 12px;
@@ -148,7 +153,7 @@ input[type="radio"] {
     width: 22px;
     height: 22px;
     background-color: #fff;
-    top: 5px;
+    top: 20px;
 }
 input[type="radio"]:checked {
     border: 2px solid white;
@@ -189,9 +194,6 @@ input[type="radio"]:checked {
 }
 /* mian-RWD */
 @media screen and (max-width: 1215px) {
-    .w-1200 {
-        width: 80%;
-    }
     .attraction {
         width: 80%;
     }
@@ -209,17 +211,8 @@ input[type="radio"]:checked {
     }
 }
 @media screen and (max-width: 960px) {
-    .w-1200 {
-        width: 95%;
-    }
     .attraction {
         width: 100%;
-    }
-    .header__title {
-        font-size: 28px;
-    }
-    .header__nav {
-        gap: 10px;
     }
     .attraction__main {
         width: 100%;

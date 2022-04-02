@@ -27,20 +27,27 @@
                 at
                 <span class="attraction__mrt"></span>
             </p>
-            <form class="attraction__reserve">
+            <div class="attraction__reserve">
                 <h2 class="reserve__title">訂購導覽行程</h2>
                 <p class="reserve__description">
                     以此景點為中心的一日行程，帶您探索城市角落故事
                 </p>
                 <label class="reserve__date" for="date">選擇日期：</label>
-                <input class="input__date" type="date" name="date" id="date" />
+                <input
+                    class="input__date"
+                    type="date"
+                    name="date"
+                    id="date"
+                    required
+                />
+                <span class="error_message"></span>
                 <p class="reserve__time">
                     選擇時間：
                     <input
                         class="input__time"
                         type="radio"
                         name="price"
-                        value="2000"
+                        value="forenoon"
                         id="forenoon"
                         checked
                     />
@@ -49,20 +56,23 @@
                         class="input__time"
                         type="radio"
                         name="price"
-                        value="2500"
+                        value="afternoon"
                         id="afternoon"
                     />
                     <label class="t-normal" for="afternoon">下半天</label>
-                </h2>
+                </p>
                 <p class="reserve__price">
-                    導覽費用： <span class="t-normal">新台幣 <span class="price">2000</span> 元</span>
+                    導覽費用：
+                    <span class="t-normal"
+                        >新台幣 <span class="price">2000</span> 元</span
+                    >
                 </p>
                 <input
                     class="reserve__button"
                     type="submit"
                     value="開始預定行程"
                 />
-            </form>
+            </div>
         </div>
     </div>
     <hr class="attraction__divider" />

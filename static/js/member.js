@@ -1,91 +1,120 @@
+// export to base
+// var
+const nav__sign = document.querySelector(".nav__sign");
+const modal__box = document.querySelector(".modal__box");
+const remind = document.querySelector(".remind");
+const message = document.querySelector(".message");
 // model
-async function get_user() {
-    response = await fetch("/api/user", {
+async function get_data_from_api(url) {
+    const response = await fetch(url, {
         method: "GET",
     });
-    message = await response.json();
+    const message = await response.json();
     return message;
 }
-async function post_user(n, e, p) {
-    response = await fetch("/api/user", {
+async function post_data_to_api(url, data) {
+    const resp = await fetch(url, {
         method: "POST",
-        body: JSON.stringify({ name: n, email: e, password: p }),
+        body: JSON.stringify(data),
         headers: new Headers({ "Content-Type": "application/json" }),
     });
-    message = await response.json();
+    const message = await resp.json();
     return message;
 }
-async function patch_user(e, p) {
-    response = await fetch("/api/user", {
+async function patch_data_to_api(url, data) {
+    const resp = await fetch(url, {
         method: "PATCH",
-        body: JSON.stringify({ email: e, password: p }),
+        body: JSON.stringify(data),
         headers: new Headers({ "Content-Type": "application/json" }),
     });
-    message = await response.json();
+    const message = await resp.json();
     return message;
 }
-async function delete_user() {
-    response = await fetch("/api/user", {
+async function delete_data_in_api(url) {
+    const resp = await fetch(url, {
         method: "DELETE",
     });
-    message = await response.json();
+    const message = await resp.json();
     return message;
 }
 // view
 function render_nav__sign(text) {
-    const sign = document.querySelector(".nav__sign");
-    sign.textContent = text;
+    nav__sign.textContent = text;
 }
 function render_remind_signin() {
-    const modal__box = document.querySelector(".modal__box");
-    const remind = document.createElement("p");
-    const remind_span = document.createElement("span");
-    remind.textContent = "已經有帳戶了?";
-    remind.className = "remind";
-    remind_span.textContent = "點此登入";
-    remind_span.className = "remind_signin_link";
-    remind.appendChild(remind_span);
-    modal__box.appendChild(remind);
+    const remind_node = document.createElement("p");
+    const remind_span_node = document.createElement("span");
+    remind_node.textContent = "已經有帳戶了?";
+    remind_node.className = "remind";
+    remind_span_node.textContent = "點此登入";
+    remind_span_node.className = "remind_signin_link";
+    remind_node.appendChild(remind_span_node);
+    modal__box.appendChild(remind_node);
 }
 function render_remind_signup() {
-    const modal__box = document.querySelector(".modal__box");
-    const remind = document.createElement("p");
-    const remind_span = document.createElement("span");
-    remind.textContent = "還沒有帳戶?";
-    remind.className = "remind";
-    remind_span.textContent = "點此註冊";
-    remind_span.className = "remind_signup_link";
-    remind.appendChild(remind_span);
-    modal__box.appendChild(remind);
+    const remind_node = document.createElement("p");
+    const remind_span_node = document.createElement("span");
+    remind_node.textContent = "還沒有帳戶?";
+    remind_node.className = "remind";
+    remind_span_node.textContent = "點此註冊";
+    remind_span_node.className = "remind_signup_link";
+    remind_node.appendChild(remind_span_node);
+    modal__box.appendChild(remind_node);
 }
 function remove_remind() {
-    const modal__box = document.querySelector(".modal__box");
     const remind = document.querySelector(".remind");
     modal__box.removeChild(remind);
 }
 function render_message(m) {
-    const modal__box = document.querySelector(".modal__box");
-    const message = document.createElement("p");
-    message.className = "message";
-    message.textContent = m;
-    modal__box.appendChild(message);
+    const message_node = document.createElement("p");
+    message_node.className = "message";
+    message_node.textContent = m;
+    modal__box.appendChild(message_node);
 }
 function remove_modal_message() {
-    const modal__box = document.querySelector(".modal__box");
-    const message = document.querySelector(".message");
     if (message) {
         modal__box.removeChild(message);
     }
 }
+function render_signin_placeholder() {
+    const inputs = document.querySelectorAll(".signin__input");
+    inputs[0].placeholder = "輸入電子信箱";
+    inputs[1].placeholder = "輸入密碼";
+}
+function render_signup_placeholder() {
+    const inputs = document.querySelectorAll(".signup__input");
+    inputs[0].placeholder = "輸入姓名";
+    inputs[1].placeholder = "輸入電子信箱";
+    inputs[2].placeholder = "輸入密碼";
+}
 // controller
 function check_current_user() {
-    get_user().then((message) => {
+    get_data_from_api("/api/user").then((message) => {
         if (message["data"]) {
             render_nav__sign("登出系統");
+            check_reservation_signin();
         } else {
             render_nav__sign("登入/註冊");
+            check_reservation_unsignin();
         }
     });
+}
+function check_reservation_signin() {
+    const nav__reserve = document.querySelector(".nav__reserve");
+    nav__reserve.onclick = () => {
+        location.href = "/booking";
+    };
+}
+function check_reservation_unsignin() {
+    const nav__reserve = document.querySelector(".nav__reserve");
+    nav__reserve.onclick = () => {
+        open_modal_for_reserve();
+    };
+}
+function open_modal_for_reserve() {
+    const modal = document.querySelector(".modal");
+    modal.dataset.active = "true";
+    switch_sign("signin");
 }
 function switch_sign(which) {
     const signin_content = document.querySelector(".signin");
@@ -93,22 +122,17 @@ function switch_sign(which) {
     if (which == "signin") {
         signin_content.dataset.active = "true";
         signup_content.dataset.active = "";
-        const inputs = document.querySelectorAll(".signin__input");
+        render_signin_placeholder();
         render_remind_signup();
         click_to_signup();
         signin();
-        inputs[0].placeholder = "輸入電子信箱";
-        inputs[1].placeholder = "輸入密碼";
     } else if (which == "signup") {
         signup_content.dataset.active = "true";
         signin_content.dataset.active = "";
-        const inputs = document.querySelectorAll(".signup__input");
+        render_signup_placeholder();
         render_remind_signin();
         click_to_signin();
         signup();
-        inputs[0].placeholder = "輸入姓名";
-        inputs[1].placeholder = "輸入電子信箱";
-        inputs[2].placeholder = "輸入密碼";
     }
 }
 function click_to_signin() {
@@ -162,7 +186,10 @@ function signin() {
         email = inputs[0];
         password = inputs[1];
         if (email.validity.valid && password.validity.valid) {
-            patch_user(email.value, password.value).then((message) => {
+            patch_data_to_api("/api/user", {
+                email: email.value,
+                password: password.value,
+            }).then((message) => {
                 email.placeholder = "輸入電子信箱";
                 password.placeholder = "輸入密碼";
                 remove_modal_message();
@@ -193,19 +220,21 @@ function signup() {
             email.validity.valid &&
             password.validity.valid
         ) {
-            post_user(text.value, email.value, password.value).then(
-                (message) => {
-                    text.placeholder = "輸入姓名";
-                    email.placeholder = "輸入電子信箱";
-                    password.placeholder = "輸入密碼";
-                    remove_modal_message();
-                    if (message["ok"]) {
-                        location.reload();
-                    } else {
-                        render_message(message["message"]);
-                    }
+            post_data_to_api("/api/user", {
+                name: text.value,
+                email: email.value,
+                password: password.value,
+            }).then((message) => {
+                text.placeholder = "輸入姓名";
+                email.placeholder = "輸入電子信箱";
+                password.placeholder = "輸入密碼";
+                remove_modal_message();
+                if (message["ok"]) {
+                    location.reload();
+                } else {
+                    render_message(message["message"]);
                 }
-            );
+            });
         } else if (!text.validity.valid) {
             text.placeholder = text.validationMessage;
         } else if (!email.validity.valid) {
@@ -219,7 +248,7 @@ function signup() {
     });
 }
 function signout() {
-    delete_user().then(() => {
+    delete_data_in_api("/api/user").then(() => {
         location.reload();
     });
 }

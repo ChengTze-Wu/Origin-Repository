@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import model
 import jwt
 
-user = Blueprint('user', __name__)
+member = Blueprint('member', __name__)
 
 load_dotenv()
 secret_key = os.environ['USER_TOKEN_SECRET_KEY']
@@ -12,12 +12,12 @@ secret_key = os.environ['USER_TOKEN_SECRET_KEY']
 api_header = {("Content-Type","application/json; charset=utf-8"),
               ('Access-Control-Allow-Origin', '*')}
 
-@user.route("/user", methods=["GET"])
+@member.route("/user", methods=["GET"])
 def get_current_user():
     try:
         email = None
-        if request.cookies:
-            encoded_token = request.cookies.get("token")
+        encoded_token = request.cookies.get("token")
+        if encoded_token:
             decoded_token = jwt.decode(encoded_token, secret_key, algorithms=["HS256"])
             email = decoded_token["email"]
         data = model.get_current_user(email)
@@ -27,7 +27,7 @@ def get_current_user():
         resp = make_response((error_message, 500, api_header))
     return resp
 
-@user.route("/user", methods=["POST"])
+@member.route("/user", methods=["POST"])
 def signup_user():
     try:
         req = request.get_json()
@@ -47,7 +47,7 @@ def signup_user():
         resp = make_response((error_message, 500, api_header))
     return resp
 
-@user.route("/user", methods=["PATCH"])
+@member.route("/user", methods=["PATCH"])
 def signin_user():
     try:
         req = request.get_json()
@@ -67,7 +67,7 @@ def signin_user():
         resp = make_response((error_message, 500, api_header))
     return resp
 
-@user.route("/user", methods=["DELETE"])
+@member.route("/user", methods=["DELETE"])
 def signout_user():
     try:
         success_message = {"ok":True}

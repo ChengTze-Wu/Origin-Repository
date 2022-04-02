@@ -106,9 +106,6 @@
 }
 /* mian-RWD */
 @media screen and (max-width: 1215px) {
-    .w-1200 {
-        width: 80%;
-    }
     .banner_image {
         right: 0;
         width: 54%;
@@ -119,15 +116,6 @@
     }
 }
 @media screen and (max-width: 600px) {
-    .w-1200 {
-        width: 90%;
-    }
-    .header__title {
-        font-size: 28px;
-    }
-    .header__nav {
-        gap: 10px;
-    }
     .banner__search {
         width: 320px;
     }
