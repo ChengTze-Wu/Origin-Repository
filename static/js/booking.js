@@ -99,8 +99,8 @@ function delete_booking() {
     });
 }
 function init_loading() {
-    login_user_name().then(() => {
-        booking();
+    login_user_name();
+    booking().then(() => {
         delete_booking();
     });
 }
