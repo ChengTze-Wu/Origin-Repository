@@ -15,13 +15,13 @@ cnx = mysql.connector.connect(pool_name = "order",
                               **config)
 
 
-def create_order(number, status, booking_id):
+def create_order(number, status, user_phone, date, time, price, attraction_id, user_id):
     try:
         cnx = mysql.connector.connect(pool_name = "order")
         cursor = cnx.cursor()
         
-        query = ("INSERT INTO orders values (%s, %s, %s)")
-        value = (number, status, booking_id)
+        query = ("INSERT INTO orders values (%s, %s, %s, %s, %s, %s, %s, %s)")
+        value = (number, status, user_phone, date, time, price, attraction_id, user_id)
             
         cursor.execute(query, value)
         cnx.commit()
@@ -39,12 +39,11 @@ def get_order_by_booking_id(order_number):
         cnx = mysql.connector.connect(pool_name = "order")
         cursor = cnx.cursor()
         
-        query = ("SELECT orders.number, bookings.price, attractions.id, attractions.name, "
-                 "attractions.address,  attractions.images, bookings.date, bookings.time, "
+        query = ("SELECT orders.number, orders.price, attractions.id, attractions.name, "
+                 "attractions.address,  attractions.images, orders.date, orders.time, "
                  "users.name, users.email, orders.user_phone, orders.status "
-                 "FROM(((orders INNER JOIN bookings ON orders.booking_id = bookings.id) "
-                 "INNER JOIN attractions ON bookings.attraction_id = attractions.id)) "
-                 "INNER JOIN users ON bookings.user_id = users.id "
+                 "FROM((orders INNER JOIN attractions ON orders.attraction_id = attractions.id) "
+                 "INNER JOIN users ON orders.user_id = users.id) "
                  "WHERE orders.number = %s")
         value = (order_number,)
         

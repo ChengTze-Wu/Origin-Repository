@@ -211,7 +211,8 @@ function TapPay() {
                     prime: result.card.prime,
                     order: orderObject(),
                 }).then((m) => {
-                    console.log(m);
+                    location.href =
+                        "/thankyou" + "?number=" + m["data"]["number"];
                 });
             }
         });

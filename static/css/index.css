@@ -67,7 +67,7 @@
     grid-auto-rows: 242px;
     gap: 30px;
     justify-content: center;
-    margin-bottom: 54px;
+    padding-bottom: 54px;
 }
 .album__item {
     display: grid;

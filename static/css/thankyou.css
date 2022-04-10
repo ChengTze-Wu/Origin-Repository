@@ -1,0 +1,15 @@
+.header {
+    box-sizing: content-box;
+    border-bottom: 1px solid #e8e8e8;
+}
+.thankyou {
+    color: var(--secondary-color);
+    padding: 30px 0px;
+    line-height: 2;
+}
+.orderNumber {
+    color: var(--main-color);
+}
+.orderNumber-nonpay {
+    color: rgb(228, 89, 39);
+}

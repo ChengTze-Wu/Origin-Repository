@@ -27,6 +27,7 @@ a:visited {
 }
 body {
     min-height: 100vh;
+    background-color: var(--secondary-color);
 }
 /* grid */
 .grid-horizon {
@@ -95,8 +96,9 @@ body {
 /* main */
 .main {
     padding-top: 54px;
+    background-color: white;
+    height: 100%;
 }
-
 /* footer */
 .footer {
     min-height: 104px;
