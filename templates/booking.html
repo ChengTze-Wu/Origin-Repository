@@ -37,15 +37,12 @@
     <hr class="booking_hr" />
     <div class="contact w-980">
         <h2 class="contact__title">您的聯絡資訊</h2>
-        <label class="contact__lable contact__name" for="name"
-            >聯絡姓名：</label
-        >
-        <input class="contact__name_input" type="text" name="name" id="name" />
+        <label class="contact__lable contact__name" for="name">聯絡姓名：</label
+        ><input class="contact__name_input" type="text" name="name" id="name" />
         <br />
         <label class="contact__lable contact__email" for="email"
             >連絡信箱：</label
-        >
-        <input
+        ><input
             class="contact__email_input"
             type="email"
             name="email"
@@ -54,8 +51,7 @@
         <br />
         <label class="contact__lable contact__phone" for="phone"
             >手機號碼：</label
-        >
-        <input
+        ><input
             class="contact__phone_input"
             type="text"
             name="phone"
@@ -68,34 +64,39 @@
     </div>
     <hr class="booking_hr" />
     <div class="card w-980">
+        <!-- TapPay -->
         <h2 class="card__title">信用卡付款資訊</h2>
-        <label class="card__lable card__num" for="num">卡片號碼：</label>
-        <input class="card__num_input" type="text" name="card_num" id="num" />
-        <br />
-        <label class="card__lable card__expired" for="expired"
-            >過期時間：</label
-        >
-        <input
-            class="card__expired_input"
-            type="text"
-            name="expired"
-            id="expired"
-        />
-        <br />
-        <label class="card__lable card__cvv" for="cvv">驗證密碼：</label>
-        <input class="card__cvv_input" type="text" name="cvv" id="cvv" />
+        <div class="card__item">
+            <p>卡片號碼：</p>
+            <div class="tpfield" id="card-number"></div>
+        </div>
+        <div class="card__item">
+            <p>過期時間：</p>
+            <div class="tpfield" id="card-expiration-date"></div>
+        </div>
+        <div class="card__item">
+            <p>驗證密碼：</p>
+            <div class="tpfield" id="card-ccv"></div>
+        </div>
     </div>
+
     <hr class="booking_hr" />
     <div class="w-980 grid-jc-end">
         <h3 class="total_price">
             總價：新台幣 <span id="booking_price"></span> 元
         </h3>
-        <input class="pay_btn" type="button" value="確認訂購並付款" />
+        <input
+            class="pay_btn"
+            id="submit-button"
+            type="button"
+            value="確認訂購並付款"
+        />
     </div>
 </div>
 <div class="unbook grid-center" data-active>
     <p class="booking_content w-980">目前沒有任何待預訂的行程</p>
 </div>
 {% endblock %} {% block script %}
+<script src="https://js.tappaysdk.com/tpdirect/v5.8.0"></script>
 <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 {% endblock %}
