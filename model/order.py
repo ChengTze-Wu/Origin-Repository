@@ -40,9 +40,9 @@ def get_order_by_booking_id(order_number):
         cursor = cnx.cursor()
         
         query = ("SELECT orders.number, bookings.price, attractions.id, attractions.name, "
-                 "attractions.address,  attractions.image, bookings.date, bookings.time, "
-                 "users.name, user.email, orders.phone, orders.status "
-                 "FROM(((orders INNER JOIN booking ON orders.booking_id = bookings.id) "
+                 "attractions.address,  attractions.images, bookings.date, bookings.time, "
+                 "users.name, users.email, orders.user_phone, orders.status "
+                 "FROM(((orders INNER JOIN bookings ON orders.booking_id = bookings.id) "
                  "INNER JOIN attractions ON bookings.attraction_id = attractions.id)) "
                  "INNER JOIN users ON bookings.user_id = users.id "
                  "WHERE orders.number = %s")
@@ -74,6 +74,24 @@ def get_order_by_booking_id(order_number):
         else:
             result = {"data":None}
         return result
+    except Exception as e:
+        raise e
+    finally:
+        if cnx.in_transaction:
+            cnx.rollback()
+        cursor.close()
+        cnx.close()
+        
+def change_order_status(order_number, status):
+    try:
+        cnx = mysql.connector.connect(pool_name = "order")
+        cursor = cnx.cursor()
+        
+        query = ("UPDATE orders SET status = %s WHERE number = %s")
+        value = (status, order_number)
+
+        cursor.execute(query, value)
+        cnx.commit()
     except Exception as e:
         raise e
     finally:
