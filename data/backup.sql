@@ -16,35 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bookings`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `bookings`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bookings` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orders` (
+  `number` bigint NOT NULL,
+  `status` int NOT NULL,
+  `user_phone` varchar(64) NOT NULL,
   `date` date NOT NULL,
   `time` varchar(16) NOT NULL,
   `price` int NOT NULL,
   `attraction_id` int NOT NULL,
   `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`number`),
   KEY `attraction_id` (`attraction_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`attraction_id`) REFERENCES `attractions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`attraction_id`) REFERENCES `attractions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bookings`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `bookings` WRITE;
-/*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (5,'2022-03-15','afternoon',2500,2,30);
-/*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (20220410205142001,1,'0905773593','2022-04-12','afternoon',2500,9,1),(20220410211047001,1,'0905773593','2022-04-12','afternoon',2500,2,1),(20220410212822001,1,'0905773593','2022-04-04','forenoon',2000,4,1),(20220410215343001,1,'','2022-03-30','forenoon',2000,2,1);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-01 18:59:42
+-- Dump completed on 2022-04-10 22:01:47
