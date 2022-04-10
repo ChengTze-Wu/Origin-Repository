@@ -20,7 +20,7 @@ def serial_generator():
     return serial
 
 def send_to_tappay(prime, amount, phone_number ,name ,email):
-    # Guarantee unique serial
+    # guarantee unique serial
     global last_datetime
     global index_num
     if last_datetime != datetime.now().strftime("%Y%m%d%H%M%S"):
