@@ -9,8 +9,8 @@ from datetime import datetime
 load_dotenv()
 
 
-PARTNER_KEY = "partner_Dqd7KLJ0xaWhm0vx2sC0qfFX3fV0aDSJmXLx5ZuhN2FIpMyZ8G569Uva"
-secret_key = os.environ['USER_TOKEN_SECRET_KEY']
+PARTNER_KEY = os.environ['PARTNER_KEY']
+SECRET_KEY = os.environ['USER_TOKEN_SECRET_KEY']
 
 api_header = {("Content-Type","application/json; charset=utf-8"),
               ('Access-Control-Allow-Origin', '*')}
@@ -65,7 +65,7 @@ def create_order():
     try:   
         encoded_token = request.cookies.get("token")
         if encoded_token:
-            decoded_token = jwt.decode(encoded_token, secret_key, algorithms=["HS256"])
+            decoded_token = jwt.decode(encoded_token, SECRET_KEY, algorithms=["HS256"])
             email = decoded_token["email"]
             user = model.get_current_user(email)
             user_id = user["data"]["id"]
@@ -122,7 +122,7 @@ def get_order(orderNumber):
     try:  
         encoded_token = request.cookies.get("token")
         if encoded_token:
-            decoded_token = jwt.decode(encoded_token, secret_key, algorithms=["HS256"])
+            decoded_token = jwt.decode(encoded_token, SECRET_KEY, algorithms=["HS256"])
             resp_data = model.get_order_by_booking_id(orderNumber)
             resp = make_response(resp_data, 200)
         else:
