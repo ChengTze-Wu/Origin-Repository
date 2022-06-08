@@ -14,12 +14,12 @@
         />
         <link
             rel="stylesheet"
-            href="{{ url_for('static', filename='css/member.css') }}"
+            href="{{ url_for('static', filename='css/modal.css') }}"
         />
         {% block style %}{% endblock %}
     </head>
     <body>
-        {% include 'member.html' %}
+        {% include 'modal.html' %}
         <header class="header">
             <div class="w-1200 grid-horizon grid-sb">
                 <a href="/" class="header__title">台北一日遊</a>
@@ -36,7 +36,7 @@
             <h1 class="footer__title">COPYRIGHT © 2021 台北一日遊</h1>
         </footer>
 
-        <script src="{{ url_for('static', filename='js/member.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
         {% block script %}{% endblock %}
     </body>
 </html>

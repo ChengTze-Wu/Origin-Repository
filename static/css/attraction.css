@@ -116,7 +116,7 @@ label {
     margin-bottom: 20px;
 }
 .attraction__reserve {
-    height: 302px;
+    min-height: 302px;
     background: #e8e8e8;
     border-radius: 5px;
     padding: 15px 20px;
@@ -134,6 +134,7 @@ label {
 }
 
 .input__date {
+    background-color: white;
     border: none;
     width: 193px;
     height: 35px;
