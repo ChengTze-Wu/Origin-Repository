@@ -1,12 +1,11 @@
-from flask import *
+from flask import Flask
 import controller
-app=Flask(__name__)
 
-app.config["JSON_AS_ASCII"]=False
-app.config["JSON_SORT_KEYS"] = False
-app.config["TEMPLATES_AUTO_RELOAD"]=True
+app = Flask(__name__)
 
-# Pages
+# config
+app.config.from_object("config.ProConfig")
+# pages
 app.register_blueprint(controller.pages)
 # api
 app.register_blueprint(controller.apis.attraction, url_prefix="/api")
@@ -15,4 +14,4 @@ app.register_blueprint(controller.apis.booking, url_prefix="/api")
 app.register_blueprint(controller.apis.order, url_prefix="/api")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run()

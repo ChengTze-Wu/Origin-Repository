@@ -7,16 +7,18 @@ config = {
     'user': os.environ['DB_USER'],
     'password': os.environ['DB_PASSWORD'],
     'host': os.environ['DB_HOST'],
+    'port': os.environ['DB_PORT'],
     'database': os.environ['DB_DATABASE']
 }
 
-cnx = mysql.connector.connect(pool_name = "attraction",
-                              pool_size = 5,
+cnx = mysql.connector.connect(pool_name="attraction",
+                              pool_size=5,
                               **config)
+
 
 def get_attractions(keyword, page):
     try:
-        cnx = mysql.connector.connect(pool_name = "attraction")
+        cnx = mysql.connector.connect(pool_name="attraction")
         cursor = cnx.cursor()
         attraction_query = ("select * from attractions "
                             "where name like concat('%', %s, '%') "
@@ -43,7 +45,6 @@ def get_attractions(keyword, page):
             next_page = int(page)+1
         else:
             next_page = None
-        return (data, next_page)
     except Exception as e:
         raise e
     finally:
@@ -51,10 +52,12 @@ def get_attractions(keyword, page):
             cnx.rollback()
         cursor.close()
         cnx.close()
+        return (data, next_page)
+
 
 def get_attraction_by_id(id):
     try:
-        cnx = mysql.connector.connect(pool_name = "attraction")
+        cnx = mysql.connector.connect(pool_name="attraction")
         cursor = cnx.cursor()
         attraction_query = ("select * from attractions "
                             "where id = %s")
@@ -63,18 +66,18 @@ def get_attraction_by_id(id):
         attraction = cursor.fetchone()
         if attraction:
             data = {"id": attraction[0],
-                            "name": attraction[1],
-                            "category": attraction[2],
-                            "description": attraction[3],
-                            "address": attraction[4],
-                            "transport": attraction[5],
-                            "mrt": attraction[6],
-                            "latitude": attraction[7],
-                            "longitude": attraction[8],
-                            "images": attraction[9].split(",")}
+                    "name": attraction[1],
+                    "category": attraction[2],
+                    "description": attraction[3],
+                    "address": attraction[4],
+                    "transport": attraction[5],
+                    "mrt": attraction[6],
+                    "latitude": attraction[7],
+                    "longitude": attraction[8],
+                    "images": attraction[9].split(",")}
         else:
             data = None
-        return {"data":data}
+        return {"data": data}
     except Exception as e:
         raise e
     finally:
@@ -82,4 +85,3 @@ def get_attraction_by_id(id):
             cnx.rollback()
         cursor.close()
         cnx.close()
-
