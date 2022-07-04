@@ -38,3 +38,17 @@ Taipei Day Trip is an e-commerce website that offers travel bookings. This websi
 -   <h3>Image Carousel</h3>
 
     ![Image Carousel](./static/img/github/carousel.gif)
+
+## Technique
+
+-   Powered by <b>Flask</b>
+-   Following the <b>MVC pattern</b>, the website is divided into three parts:
+    -   Model: the data layer, containing the database connection and operations.
+    -   View: the presentation layer, containing the HTML templates and static files.
+    -   Controller: the business logic layer, containing the api calls and the business logic.
+-   Following the <b>Restful API</b> design.
+-   Using <b>AWS RDS (MySQL)</b> for database, <b>EC2</b> for server.
+-   Using <b>Docker</b> for containerization, <b>Docker Compose</b> for deployment.
+-   Using <b>Gunicorn</b> for application server.
+-   All front-end dynamics are built with <b>pure JavaScript</b>, without using any third-party packages.
+-   Using <b>TapPay</b> for payment gateway.
