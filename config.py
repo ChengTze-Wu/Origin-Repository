@@ -15,4 +15,3 @@ class ProConfig(Config):
     ENV = 'production'
     TESTING = False
     DEBUG = False
-    # SERVER_NAME = ".chengtze.site"

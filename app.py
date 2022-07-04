@@ -14,4 +14,4 @@ app.register_blueprint(controller.apis.booking, url_prefix="/api")
 app.register_blueprint(controller.apis.order, url_prefix="/api")
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=3000)
+    app.run()

@@ -31,14 +31,14 @@ def get_attractions(keyword, page):
             for attraction in attractions[:12]:
                 data.append({"id": attraction[0],
                             "name": attraction[1],
-                             "category": attraction[2],
-                             "description": attraction[3],
-                             "address": attraction[4],
-                             "transport": attraction[5],
-                             "mrt": attraction[6],
-                             "latitude": attraction[7],
-                             "longitude": attraction[8],
-                             "images": attraction[9].split(",")})
+                            "category": attraction[2],
+                            "description": attraction[3],
+                            "address": attraction[4],
+                            "transport": attraction[5],
+                            "mrt": attraction[6],
+                            "latitude": attraction[7],
+                            "longitude": attraction[8],
+                            "images": attraction[9].split(",")})
         else:
             data = None
         if len(attractions) > 12:
