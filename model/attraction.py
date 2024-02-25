@@ -1,8 +1,6 @@
 import os
-from dotenv import load_dotenv
 import mysql.connector
 
-load_dotenv()
 config = {
     'user': os.environ['DB_USER'],
     'password': os.environ['DB_PASSWORD'],

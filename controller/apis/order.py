@@ -1,42 +1,19 @@
 import os
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request, make_response, current_app
 import jwt
 import model
-from dotenv import load_dotenv
 import requests
-from datetime import datetime
-
-load_dotenv()
-
+import uuid
 
 PARTNER_KEY = os.environ['PARTNER_KEY']
 SECRET_KEY = os.environ['USER_TOKEN_SECRET_KEY']
 
-api_header = {("Content-Type","application/json; charset=utf-8"),
-              ('Access-Control-Allow-Origin', '*')}
+api_header = {("Content-Type","application/json; charset=utf-8")}
 
 order =  Blueprint('order', __name__)
 
-
-# serial_generate
-index_num = 1
-last_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-def serial_generator():
-    global index_num
-    serial_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-    serial = "{}{:03}".format(serial_datetime, index_num)
-    index_num += 1
-    return serial
-
 def send_to_tappay(prime, amount, phone_number ,name ,email):
-    # guarantee unique serial
-    global last_datetime
-    global index_num
-    if last_datetime != datetime.now().strftime("%Y%m%d%H%M%S"):
-        index_num = 1
-    current_serial = serial_generator()
-    last_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-
+    current_serial = str(uuid.uuid4())
     url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
     headers = {'Content-Type': 'application/json',
                'x-api-key':PARTNER_KEY}
@@ -44,7 +21,7 @@ def send_to_tappay(prime, amount, phone_number ,name ,email):
     j_data = {
         "prime": prime,
         "partner_key": PARTNER_KEY,
-        "merchant_id": "yaoop3050777_NCCC",
+        "merchant_id": "chan880216_CTBC",
         "details":"TapPay Test",
         "order_number": current_serial,
         "amount": amount,
@@ -56,6 +33,8 @@ def send_to_tappay(prime, amount, phone_number ,name ,email):
     }
     
     r = requests.post(url, headers=headers, json=j_data)
+
+    r.raise_for_status()
     
     return r.json()
 
@@ -113,8 +92,9 @@ def create_order():
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))
     except Exception as e:
-        error_message = {"error":True, "message":str(e)}
-        resp = make_response((error_message, 500, api_header))
+        current_app.logger.error(e, exc_info=True)
+        error_message = {"error":True, "message":"Internal Server Error"}
+        resp = make_response(error_message, 500, api_header)
     return resp
 
 @order.route("/order/<orderNumber>", methods=["GET"])
@@ -128,6 +108,7 @@ def get_order(orderNumber):
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))
     except Exception as e:
-        error_message = {"error":True, "message":str(e)}
+        current_app.logger.error(e, exc_info=True)
+        error_message = {"error":True, "message":"Internal Server Error"}
         resp = make_response((error_message, 500, api_header))
     return resp

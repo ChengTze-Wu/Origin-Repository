@@ -1,14 +1,11 @@
 import os
-from flask import Blueprint, request, make_response
-from dotenv import load_dotenv
+from flask import Blueprint, request, make_response, current_app
 import model
 import jwt
 
-load_dotenv()
 secret_key = os.environ['USER_TOKEN_SECRET_KEY']
 
-api_header = {("Content-Type","application/json; charset=utf-8"),
-              ('Access-Control-Allow-Origin', '*')}
+api_header = {("Content-Type","application/json; charset=utf-8")}
 
 booking = Blueprint('booking', __name__)
 
@@ -26,7 +23,8 @@ def get_booking_with_cookie():
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))
     except Exception as e:
-        error_message = {"error":True, "message":str(e)}
+        current_app.logger.error(e, exc_info=True)
+        error_message = {"error":True, "message":"Internal Server Error"}
         resp = make_response((error_message, 500, api_header))
     return resp
 
@@ -51,7 +49,8 @@ def create_booking():
         else:
             resp = make_response(({"error":True, "message":"建立失敗，輸入不正確或其他原因"}, 400, api_header))
     except Exception as e:
-        error_message = {"error":True, "message":str(e)}
+        current_app.logger.error(e, exc_info=True)
+        error_message = {"error":True, "message":"Internal Server Error"}
         resp = make_response((error_message, 500, api_header))
     return resp
 
@@ -69,6 +68,7 @@ def delete_booking():
         else:
             resp = make_response(({"error":True, "message":"未登入系統"}, 403, api_header))
     except Exception as e:
-        error_message = {"error":True, "message":str(e)}
+        current_app.logger.error(e, exc_info=True)
+        error_message = {"error":True, "message":"Internal Server Error"}
         resp = make_response((error_message, 500, api_header))
     return resp
