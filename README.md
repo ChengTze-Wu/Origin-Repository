@@ -4,7 +4,7 @@ Taipei Day Trip is an e-commerce website that offers travel bookings. This websi
 
 ## Browse the site
 
-[Taipei Day Trip](http://taipei-oneday.chengtze.site/)
+[Taipei Day Trip](http://taipei-day-trip.chengtze.cc/)
 
 -   Test User for Login
     -   Email: demo@email.com
