@@ -7,11 +7,11 @@ Taipei Day Trip is an e-commerce website that offers travel bookings. This websi
 [Taipei Day Trip](http://taipei-oneday.chengtze.site/)
 
 -   Test User for Login
-    -   Email: test@test
-    -   Password: test
+    -   Email: demo@email.com
+    -   Password: demo
 -   Test Credit Card for Payment
     -   Card Number: 4242-4242-4242-4242
-    -   expiry date: 01/23
+    -   expiry date: 01/28
     -   ccv: 123
 
 ## Features
