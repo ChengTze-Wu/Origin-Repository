@@ -1,9 +1,7 @@
 import os
-from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import errorcode
 
-load_dotenv()
 config = {
     'user': os.environ['DB_USER'],
     'password': os.environ['DB_PASSWORD'],
@@ -65,18 +63,16 @@ def signup_user(name, email, password):
         return True
 
 
-def signin_user(email, password):
+def signin_user(email):
     try:
         cnx = mysql.connector.connect(pool_name="user")
         cursor = cnx.cursor()
-
-        query_user = ("select email from users "
-                      "where email = %s and password = %s")
-        data_user = (email, password)
+        query_user = ("select email, password from users where email = %s")
+        data_user = (email,)
 
         cursor.execute(query_user, data_user)
         data = cursor.fetchone()
-        result = data[0] if data else None
+        result = {"email": data[0], "password": data[1]} if data else None
     except Exception as e:
         raise e
     finally:

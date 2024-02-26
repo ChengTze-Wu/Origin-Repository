@@ -2,6 +2,18 @@
 
 Taipei Day Trip is an e-commerce website that offers travel bookings. This website provides members to search about tourist attractions, make reservations and make payments. Browse the site, hope you have a good time.
 
+## Browse the site
+
+[Taipei Day Trip](http://taipei-day-trip.chengtze.cc/)
+
+-   Test User for Login
+    -   Email: demo@email.com
+    -   Password: demo
+-   Test Credit Card for Payment
+    -   Card Number: 4242-4242-4242-4242
+    -   expiry date: 01/28
+    -   ccv: 123
+
 ## Features
 
 -   <h3>Booking & Payment System</h3>
@@ -12,9 +24,9 @@ Taipei Day Trip is an e-commerce website that offers travel bookings. This websi
 
     ![Member System](./static/img/github/member.gif)
 
--   <h3>Search Engine</h3>
+-   <h3>Search</h3>
 
-    ![Search Engine](./static/img/github/search.gif)
+    ![Search](./static/img/github/search.gif)
 
 -   <h3>Lazy Loading</h3>
 

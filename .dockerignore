@@ -1,3 +1,12 @@
 __pycache__/
-data/
+data/   
+.DS_Store
+.dockerignore
 .env
+.git/
+.gitignore
+.venv/
+Dockerfile
+poetry.lock
+pyproject.toml
+README.md

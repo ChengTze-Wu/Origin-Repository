@@ -1,4 +1,4 @@
-from flask import Blueprint, request, Response
+from flask import Blueprint, request, Response, current_app
 import model
 import json
 
@@ -8,7 +8,6 @@ attraction = Blueprint('attraction', __name__)
 def attractions():
     response = Response()
     response.headers.add("Content-Type", "application/json; charset=utf-8")
-    response.headers.add('Access-Control-Allow-Origin', '*')
     page = request.args.get("page", 0)
     keyword = request.args.get("keyword", '%')
     try:
@@ -20,7 +19,8 @@ def attractions():
             result = json.dumps({"error":True, "message":"無資料"}, ensure_ascii=False)
             status = 500
     except Exception as e:
-        result = json.dumps({"error":True, "message":str(e)}, ensure_ascii=False)
+        current_app.logger.error(e, exc_info=True)
+        result = json.dumps({"error":True, "message":"Internal Server Error"}, ensure_ascii=False)
         status = 500
     response.set_data(result)
     response.status_code = status
@@ -30,7 +30,6 @@ def attractions():
 def attraction_by_id(id):
     response = Response()
     response.headers.add("Content-Type", "application/json; charset=utf-8")
-    response.headers.add('Access-Control-Allow-Origin', '*')
     try:
         data = model.get_attraction_by_id(id)
         if data:
@@ -40,7 +39,8 @@ def attraction_by_id(id):
             result = json.dumps({"error":True,"message":"景點標號不正確"}, ensure_ascii=False)
             status = 400
     except Exception as e:
-        result = json.dumps({"error":True,"message":str(e)}, ensure_ascii=False)
+        current_app.logger.error(e, exc_info=True)
+        result = json.dumps({"error":True,"message":"Internal Server Error"}, ensure_ascii=False)
         status = 500
     response.set_data(result)
     response.status_code = status

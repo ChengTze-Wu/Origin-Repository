@@ -1,8 +1,5 @@
 {% extends "base.html" %} {% block style %}
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/booking.css') }}"
-/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}" />
 {% endblock %}{% block main %}
 <div class="grid-center">
     <h2 class="booking_title w-980">
@@ -11,10 +8,7 @@
 </div>
 <div class="booked grid-center" data-active>
     <div class="detail w-980">
-        <img
-            class="delete"
-            src="{{ url_for('static', filename='img/icon_delete.png') }}"
-        />
+        <img class="delete" src="{{ url_for('static', filename='img/icon_delete.png') }}" />
         <img class="img" id="attraction_image" />
         <div class="text">
             <h3 class="detail__title">
@@ -37,26 +31,14 @@
     <hr class="booking_hr" />
     <div class="contact w-980">
         <h2 class="contact__title">您的聯絡資訊</h2>
-        <label class="contact__lable contact__name" for="name">聯絡姓名：</label
-        ><input class="contact__name_input" type="text" name="name" id="name" />
+        <label class="contact__lable contact__name" for="name">聯絡姓名：</label><input class="contact__name_input"
+            type="text" name="name" id="name" />
         <br />
-        <label class="contact__lable contact__email" for="email"
-            >連絡信箱：</label
-        ><input
-            class="contact__email_input"
-            type="email"
-            name="email"
-            id="email"
-        />
+        <label class="contact__lable contact__email" for="email">連絡信箱：</label><input class="contact__email_input"
+            type="email" name="email" id="email" />
         <br />
-        <label class="contact__lable contact__phone" for="phone"
-            >手機號碼：</label
-        ><input
-            class="contact__phone_input"
-            type="text"
-            name="phone"
-            id="phone"
-        />
+        <label class="contact__lable contact__phone" for="phone">手機號碼：</label><input class="contact__phone_input"
+            type="text" name="phone" id="phone" />
         <br />
         <h3 class="contact__remind">
             請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
@@ -85,12 +67,7 @@
         <h3 class="total_price">
             總價：新台幣 <span id="booking_price"></span> 元
         </h3>
-        <input
-            class="pay_btn"
-            id="submit-button"
-            type="button"
-            value="確認訂購並付款"
-        />
+        <input class="pay_btn" id="submit-button" type="button" value="確認訂購並付款" />
     </div>
 </div>
 <div class="unbook grid-center" data-active>
