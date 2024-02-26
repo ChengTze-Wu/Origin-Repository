@@ -24,9 +24,9 @@ Taipei Day Trip is an e-commerce website that offers travel bookings. This websi
 
     ![Member System](./static/img/github/member.gif)
 
--   <h3>Search Engine</h3>
+-   <h3>Search</h3>
 
-    ![Search Engine](./static/img/github/search.gif)
+    ![Search](./static/img/github/search.gif)
 
 -   <h3>Lazy Loading</h3>
 
